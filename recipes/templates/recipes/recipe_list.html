@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RecipeHub</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #004643; margin: 0; padding: 40px; }
+        h1 { text-align: center; color: #fffffe; margin-bottom: 40px; }
+        .recipe-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 800px; margin: 0 auto; }
+        .recipe-card { background-color: #e8e4e6; border: 1px solid #abd1c6; border-radius: 12px; padding: 18px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+        .recipe-card a { text-decoration: none; color: #001e1d; font-weight: bold; font-size: 16px; }
+        body > a { display: block; text-align: center; color: #f9bc60; font-weight: bold; margin-bottom: 20px; }
+        .search-form { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .search-form input[type="text"] { padding: 10px 14px; border-radius: 8px; border: 1px solid #abd1c6; background-color: #e8e4e6; color: #001e1d; font-family: inherit; font-size: 14px; width: 220px; }
+        .search-form button { padding: 10px 18px; border: none; border-radius: 8px; background-color: #f9bc60; color: #001e1d; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>RecipeHub</h1>
+    <a href="{% url 'add_recipe' %}">+ Add New Recipe</a>
+    <form class="search-form" method="get">
+        <input type="text" name="query" placeholder="Search recipes..." value="{{ request.GET.query }}">
+        <button type="submit">Search</button>
+    </form>
+    <div class="recipe-grid">
+        {% for recipe in recipes %}
+        <div class="recipe-card">
+            <a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.title }}</a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
